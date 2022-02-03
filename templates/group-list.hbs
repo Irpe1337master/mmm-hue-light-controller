@@ -1,0 +1,47 @@
+<div class="hue-container">
+  {{#each groups}}
+  <div class="hue-row">
+
+    <div class="hue-card text-white">
+      <div class="hue-card-body">
+        <div class="hue-row">
+          <div class="hue-column hue-text-left">
+            <h5 class="hue-mx-0 color-gray">Group</h5>
+            <h2 class="hue-mx-0">{{ name }}</h2>
+          </div>
+          <div class="hue-column hue-col-2 align-center text-xl-right">
+            <button class="hue-btn" data-action="toggleGroupLights" data-groupid="{{@key}}" data-islighton="{{ state.any_on }}">
+              {{#if state.any_on }}
+              <i class="icon-lg bi bi-lightbulb light-on-color"></i>
+              {{else}}
+              <i class="icon-lg bi bi-lightbulb-off light-off-color"></i>
+              {{/if}}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="hue-card-footer">
+        <div class="hue-row">
+          <div class="hue-column hue-px-0">
+            <button class="hue-btn"
+            data-action="changeGroupBrightness"
+            data-groupid="{{@key}}"
+            data-brightness="{{ action.bri }}"
+            value="-30">
+            <span class="light-on-color">-30</span>
+          </button>
+          <button class="hue-btn light-on-color"
+          data-action="changeGroupBrightness"
+          data-groupid="{{@key}}"
+          data-brightness="{{ action.bri }}"
+          value="+30">
+          <span class="light-on-color">+30</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+{{/each}}
+</div>
