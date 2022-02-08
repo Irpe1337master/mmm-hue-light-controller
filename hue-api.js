@@ -23,10 +23,15 @@ window.hueApi = {
     });
   },
 
-  toggleGroupLights: function(bridgeIp, user, groupId, toggle) {
-    var url = "http://" + bridgeIp + "/api/" + user + "/groups/" + groupId + "/action";
+  toggleGroupLights: function(bridgeIp, user, groupId, toggle, setBrightness) {
+    let url = "http://" + bridgeIp + "/api/" + user + "/groups/" + groupId + "/action";
 
-    var dataRequest = new XMLHttpRequest();
+    let dataRequest = new XMLHttpRequest();
+
+    let payload = { "on": toggle }
+    if (setBrightness) {
+      payload["bri"] = 130
+    }
 
     return new Promise((resolve, reject) => {
 
@@ -41,7 +46,7 @@ window.hueApi = {
           }
         }
       };
-      dataRequest.send(JSON.stringify({"on":toggle}));
+      dataRequest.send(JSON.stringify(payload));
     });
   },
   changeGroupBrightness: function(bridgeIp, user, groupId, newBrightness) {

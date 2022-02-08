@@ -169,10 +169,11 @@ Module.register("mmm-hue-light-controller", {
 	},
 
 	toggleGroupLights: function(dataset) {
-		var self = this;
+		let self = this;
 		let toggleLight = dataset.islighton == "true" ? false : true;
+		let setBrightness = this.hueGroups[dataset.groupid].action.bri < 20 ? true : false
 
-		hueApi.toggleGroupLights(this.config.bridgeIp, this.config.user, dataset.groupid, toggleLight).then(
+		hueApi.toggleGroupLights(this.config.bridgeIp, this.config.user, dataset.groupid, toggleLight, setBrightness).then(
 			res => {
 				this.getGroups();
 				self.setHueGroupLightColor();
@@ -184,7 +185,7 @@ Module.register("mmm-hue-light-controller", {
 		var self = this;
 
 		changeBrightnessValue = Number(changeBrightnessValue)
-		let currentBrightness =Number(dataset.brightness)
+		let currentBrightness = Number(dataset.brightness)
 		let newBrightness = changeBrightnessValue < 0 ? currentBrightness - Math.abs(changeBrightnessValue) : currentBrightness + changeBrightnessValue;
 
 		if (newBrightness < 0) {
