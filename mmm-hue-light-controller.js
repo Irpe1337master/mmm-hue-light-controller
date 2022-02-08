@@ -40,7 +40,7 @@ Module.register("mmm-hue-light-controller", {
 		// 15min interval
 		setInterval(function() {
 			console.log("interval");
-			this.setHueGroupLightColor();
+			self.setHueGroupLightColor();
 			//self.updateDom();
 		}, 900000);
 	},
@@ -90,16 +90,22 @@ Module.register("mmm-hue-light-controller", {
 				let sat = 0;
 
 				if (res.weather[0].main == 'Clouds') {
+					console.log("it is cloudy color")
 					hue = 41483;
 					sat = 78;
 				} else {
+					console.log("use default color")
 					hue = 9214;
 					sat = 57;
 				}
 
 				let currentUnixTime = new Date().getTime();
+				currentUnixTime = currentUnixTime.toString().slice(0, -3);
+				currentUnixTime = parseInt(currentUnixTime);
+
 				// Default color when sun is down
-				if (currentUnixTime <= res.sys.sunrise || currentUnixTime >= res.sys.sunset) {
+				if (currentUnixTime > res.sys.sunrise && currentUnixTime > res.sys.sunset) {
+					console.log("sun is down color");
 					hue = 8024;
 					sat = 143;
 				}
