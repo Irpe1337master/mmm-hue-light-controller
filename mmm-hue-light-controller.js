@@ -89,8 +89,14 @@ Module.register("mmm-hue-light-controller", {
 				let hue = 0;
 				let sat = 0;
 
+				console.log("weather is " + res.weather[0].main)
+
 				if (res.weather[0].main == 'Clouds') {
 					console.log("it is cloudy color")
+					hue = 41483;
+					sat = 78;
+				} else if (res.weather[0].main == 'Snow') {
+					console.log("it is Snow color")
 					hue = 41483;
 					sat = 78;
 				} else {
